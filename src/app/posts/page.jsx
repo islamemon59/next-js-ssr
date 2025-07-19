@@ -8,6 +8,11 @@ const fetchData = async () => {
     return data
 }
 
+export const metadata = {
+  title: "All Posts",
+  description: "There are all post data",
+};
+
 const page = async () => {
 
     const posts = await fetchData()

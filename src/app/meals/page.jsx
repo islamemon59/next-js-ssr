@@ -1,7 +1,12 @@
+import Link from "next/link";
 import MealSearchInput from "./Components/MealSearchInput";
 
+export const metadata = {
+  title: "All Meals",
+  description: "Trying to learning NextJs as best as we can",
+};
 
-const MealsPage = async ({searchParams}) => {
+const MealsPage = async ({ searchParams }) => {
   const query = await searchParams;
   const fetchMeals = async () => {
     try {
@@ -17,7 +22,7 @@ const MealsPage = async ({searchParams}) => {
     }
   };
 
-  const meals = await fetchMeals()
+  const meals = await fetchMeals();
 
   // useEffect(() => {
   //   fetchMeals();
@@ -32,13 +37,14 @@ const MealsPage = async ({searchParams}) => {
           onChange={(e) => setSearch(e.target.value)}
           type="text"
         /> */}
-        <MealSearchInput/>
+        <MealSearchInput />
       </div>
       {meals.map((singleMeal) => {
         return (
           <div key={singleMeal.idMeal}>
             <h1>{singleMeal.strMeal}</h1>
             <h1>{singleMeal.strCategory}</h1>
+            <Link href={`/meals/${singleMeal.idMeal}`}>Details</Link>
           </div>
         );
       })}
