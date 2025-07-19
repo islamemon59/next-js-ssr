@@ -1,6 +1,13 @@
 import Link from "next/link";
 import MealSearchInput from "./Components/MealSearchInput";
 import Image from "next/image";
+import { Roboto } from "next/font/google";
+
+
+const roboto = Roboto({
+  weight: ["400"],
+  subsets: ["latin"]
+})
 
 export const metadata = {
   title: "All Meals",
@@ -43,7 +50,7 @@ const MealsPage = async ({ searchParams }) => {
       <div className="grid lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-4 grid-cols-2">
         {meals.map((singleMeal) => {
           return (
-            <div key={singleMeal.idMeal}>
+            <div key={singleMeal.idMeal} className={roboto.className}>
               <Image
                 width={200}
                 height={200}

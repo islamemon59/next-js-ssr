@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "./Components/Navbar";
 
@@ -12,12 +12,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const poppins = Poppins({
+  weight: ["400" , "600" , "700"],
+  subsets: ["latin"],
+});
+
 export const metadata = {
   title: {
     default: "Learning Nextjs",
-    template: "%s | Learning Nextjs"
+    template: "%s | Learning Nextjs",
   },
-  keywords : ['Next.js', 'React', 'JavaScript', "Learning", "Playground"],
+  keywords: ["Next.js", "React", "JavaScript", "Learning", "Playground"],
   description: "Trying to learning NextJs as best as we can",
 };
 
@@ -25,9 +30,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${poppins.className} antialiased`}
       >
-        <Navbar/>
+        <Navbar />
         {children}
       </body>
     </html>
