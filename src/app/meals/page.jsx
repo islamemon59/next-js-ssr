@@ -36,7 +36,7 @@ const MealsPage = async ({searchParams}) => {
       </div>
       {meals.map((singleMeal) => {
         return (
-          <div>
+          <div key={singleMeal.idMeal}>
             <h1>{singleMeal.strMeal}</h1>
             <h1>{singleMeal.strCategory}</h1>
           </div>

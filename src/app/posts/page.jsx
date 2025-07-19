@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import style from './post.module.css'
 
 const fetchData = async () => {
     const res = await fetch("https://jsonplaceholder.typicode.com/posts")
@@ -16,9 +17,9 @@ const page = async () => {
             {
                 posts.map(singleData => {
                     return (
-                        <div key={singleData.id} className='border-2 border-emerald-500 max-w-2xl mx-auto p-4 rounded'>
-                            <p>{singleData.title}</p>
-                            <p>{singleData.body}</p>
+                        <div key={singleData.id} className='test-class border-2 border-emerald-500 max-w-2xl mx-auto p-4 rounded'>
+                            <p className='title'>{singleData.title}</p>
+                            <p className={`${style['single']}`}>{singleData.body}</p>
                             <Link href={`/posts/${singleData.id}`}>Details</Link>
                         </div>
                     )
