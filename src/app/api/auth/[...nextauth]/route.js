@@ -1,7 +1,8 @@
+import dbConnect from "@/lib/dbConnect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -11,15 +12,18 @@ const handler = NextAuth({
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        userName: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
         console.log("this is credential", credentials);
+        const { userName, password } = credentials;
         // Add logic here to look up the user from the credentials supplied
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+        const user = await dbConnect("jobs").findOne({ userName });
 
-        if (user) {
+        const isPasswordOk = password == user?.password;
+
+        if (isPasswordOk) {
           // Any object returned will be saved in `user` property of the JWT
           return user;
         } else {
@@ -31,6 +35,24 @@ const handler = NextAuth({
       },
     }),
   ],
-});
+  callbacks: {
+  async session({ session, token, user }) {
+    if(token){
+      session.user.userName = token.userName;
+      session.user.role = token.role
+    }
+    return session
+  },
+  async jwt({ token, user, account, profile, isNewUser }) {
+    if(user){
+      token.userName = user.userName
+      token.role = user.role
+    }
+    return token
+  }
+}
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
