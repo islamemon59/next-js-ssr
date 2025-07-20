@@ -1,7 +1,7 @@
 "use server"
-import dbConnect from "@/lib/dbConnect"
+import dbConnect, { collectionName } from "@/lib/dbConnect"
 
 export const registerUser = async (payload) => {
-    const result = await dbConnect("jobs").insertOne(payload)
+    const result = await dbConnect(collectionName.ALL_DATA).insertOne(payload)
     return result
 }

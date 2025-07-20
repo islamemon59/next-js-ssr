@@ -1,6 +1,10 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 const uri = process.env.MONGODB_URI;
 
+export const collectionName = {
+  ALL_DATA: "jobs",
+};
+
 const dbConnect = (collectionName) => {
   const client = new MongoClient(uri, {
     serverApi: {
@@ -10,7 +14,7 @@ const dbConnect = (collectionName) => {
     },
   });
 
-  return client.db("careerCode").collection(collectionName)
+  return client.db("careerCode").collection(collectionName);
 };
 
 export default dbConnect;
