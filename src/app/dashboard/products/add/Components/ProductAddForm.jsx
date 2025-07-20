@@ -1,6 +1,8 @@
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const ProductAddForm = () => {
+    const router = useRouter()
 
     const handleAddProduct = async (e) => {
         e.preventDefault();
@@ -16,7 +18,8 @@ const ProductAddForm = () => {
         })
         const result = await res.json();
         form.reset()
-        alert("Data Added")
+        // alert("Data Added")
+        router.push("/products")
         console.log(result);
     }
 
