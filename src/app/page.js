@@ -3,6 +3,7 @@ import LoginButton from "./Components/LoginButton";
 import UserInfo from "./Components/UserInfo";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import Logout from "./Components/Logout";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -54,7 +55,8 @@ export default async function Home() {
           >
             Read our docs
           </a>
-          <LoginButton />
+          {session?.user ? <Logout/> : <LoginButton />}
+          
           <UserInfo />
           <p>{JSON.stringify(session)}</p>
         </div>
